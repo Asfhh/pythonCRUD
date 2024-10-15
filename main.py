@@ -262,3 +262,20 @@ def spausdinti_profili(vartotojas, nr=1)
 def perziureti_profilius():
     if not vartotoju_profiliai:
         print('Nėra pridėtų profilių')
+    else:
+        nr = 1
+        for profilis in vartotoju_profiliai:
+            spausdinti_profili(profilis, nr)
+            nr += 1
+def prideti_profili():
+    vardas = input('Įveskite vartotojo vardą: ')
+    el_pastas = input('Įveskite el. paštą: ')
+    slaptazodis = input('Įveskite slaptažodį: ')
+    sukurimo_data = datetime.datetime.now()
+    vartotoju_profiliai.append([vardas, el_pastas, sukurimo_data])
+    print(f'Profilis vartotojui {vardas} pridėtas sėkmingai!')
+
+def redaguoti_profili():
+    perziureti_profilius()
+    try:
+        profilio_numeris = int(input('Įveskite profilio numerį, kurį norite ištrinti: ')) - 1
