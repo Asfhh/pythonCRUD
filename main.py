@@ -250,4 +250,15 @@ vartotoju_profiliai = []
 def spausdinti_meniu():
     print('--------------------------------')
     print('1. Peržiūrėti visus profilius')
-    print
+    print('2. Pridėti naują profilį')
+    print('3. Redaguoti profilį')
+    print('4. Ištrinti profilį')
+    print('5. Baigti')
+    print('--------------------------------')
+
+def spausdinti_profili(vartotojas, nr=1)
+    print(f'{nr}. Vartotojo vardas: {vartotojas[0]}, El. paštas: {vartotojas[1]}, Sukurta: {vartotojas[2]}')
+
+def perziureti_profilius():
+    if not vartotoju_profiliai:
+        print('Nėra pridėtų profilių')
