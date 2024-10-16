@@ -241,8 +241,102 @@ import datetime
 
 # Užduotis.  CRUDas objektui kuris turi BENT 3 parametrus, šie turi būti bent dviejų skirtingų duomenų tipų.
 
-#Profilio tvarkyklė
+# #Profilio tvarkyklė
+#
+# import datetime
+#
+# vartotoju_profiliai = []
+#
+#
+# def spausdinti_meniu():
+#     print('--------------------------------')
+#     print('1. Peržiūrėti visus profilius')
+#     print('2. Pridėti naują profilį')
+#     print('3. Redaguoti profilį')
+#     print('4. Ištrinti profilį')
+#     print('5. Baigti')
+#     print('6. Ieškoti profilio')
+#     print('--------------------------------')
+#
+#
+# def spausdinti_profili(vartotojas, nr=1):
+#     print(f'{nr}. Vartotojo vardas: {vartotojas[0]}, El. paštas: {vartotojas[1]}, '
+#           f'Slaptažodis: {vartotojas[2]}, Sukurta: {vartotojas[3].strftime("%Y-%m-%d %H:%M:%S")}')
+#
+#
+# def perziureti_profilius():
+#     if not vartotoju_profiliai:
+#         print('Nėra pridėtų profilių')
+#     else:
+#         nr = 1
+#         for profilis in vartotoju_profiliai:
+#             spausdinti_profili(profilis, nr)
+#             nr += 1
+#
+#
+# def prideti_profili():
+#     vardas = input('Įveskite vartotojo vardą: ')
+#     el_pastas = input('Įveskite el. paštą: ')
+#     slaptazodis = input("Įveskite slaptažodį: ")
+#     sukurimo_data = datetime.datetime.now()
+#     vartotoju_profiliai.append([vardas, el_pastas, slaptazodis, sukurimo_data])
+#     print(f'Profilis vartotojui {vardas} pridėtas sėkmingai!')
+#
+#
+# def redaguoti_profili():
+#     perziureti_profilius()
+#     try:
+#         profilio_numeris = int(input('Įveskite profilio numerį, kurį norite redaguoti: ')) - 1
+#         if 0 <= profilio_numeris < len(vartotoju_profiliai):
+#             vardas = input("Naujas vartotojo vardas: ")
+#             el_pastas = input("Naujas el. paštas: ")
+#             slaptazodis = input("Naujas slaptažodis: ")
+#             vartotoju_profiliai[profilio_numeris][0] = vardas
+#             vartotoju_profiliai[profilio_numeris][1] = el_pastas
+#             vartotoju_profiliai[profilio_numeris][2] = slaptazodis
+#             print('Profilis atnaujintas sėkmingai!')
+#         else:
+#             print('Neteisingas profilio numeris.')
+#     except ValueError:
+#         print('Neteisinga įvestis.')
+#
+#
+# def istrinti_profili():
+#     perziureti_profilius()
+#     try:
+#         profilio_numeris = int(input('Įveskite profilio numerį, kurį norite ištrinti: ')) - 1
+#         if 0 <= profilio_numeris < len(vartotoju_profiliai):
+#             vartotoju_profili.pop(profilio_numeris)
+#             print('Profilis ištrintas sėkmingai!')
+#         else:
+#             print('Neteisingas profilio numeris.')
+#     except ValueError:
+#         print('Neteisinga įvestis.')
+#
+#
+# while True:
+#     print('--------------------------------')
+#     print(f'       PROFILIO TVARKYKLĖ       ')
+#     spausdinti_meniu()
+#     pasirinkimas = int(input('Pasirinkite veiksmą: '))
+#
+#     match pasirinkimas:
+#         case 1:
+#             perziureti_profilius()
+#         case 2:
+#             prideti_profili()
+#         case 3:
+#             redaguoti_profili()
+#         case 4:
+#             istrinti_profili()
+#         case 5:
+#             print('Programa baigiama...')
+#             break
+#         case _:
+#             print('Neteisinga parinktis, bandykite dar kartą.')
 
+
+# SU FUNKCIJA IEŠKOTI:
 import datetime
 
 vartotoju_profiliai = []
@@ -254,7 +348,8 @@ def spausdinti_meniu():
     print('2. Pridėti naują profilį')
     print('3. Redaguoti profilį')
     print('4. Ištrinti profilį')
-    print('5. Baigti')
+    print('5. Ieškoti profilio')
+    print('6. Baigti')
     print('--------------------------------')
 
 
@@ -305,7 +400,7 @@ def istrinti_profili():
     try:
         profilio_numeris = int(input('Įveskite profilio numerį, kurį norite ištrinti: ')) - 1
         if 0 <= profilio_numeris < len(vartotoju_profiliai):
-            vartotoju_profili.pop(profilio_numeris)
+            vartotoju_profiliai.pop(profilio_numeris)
             print('Profilis ištrintas sėkmingai!')
         else:
             print('Neteisingas profilio numeris.')
@@ -313,23 +408,48 @@ def istrinti_profili():
         print('Neteisinga įvestis.')
 
 
+def ieskoti_profilio():
+    kriterijus = input('Įveskite paieškos kriterijų (vardas/el. paštas): ').strip().lower()
+    raktas = input('Įveskite reikšmę: ').strip().lower()
+
+    rezultatai = []
+
+    for profilis in vartotoju_profiliai:
+        if kriterijus == 'vardas' and raktas in profilis[0].lower():
+            rezultatai.append(profilis)
+        elif kriterijus == 'el. paštas' and raktas in profilis[1].lower():
+            rezultatai.append(profilis)
+
+    if rezultatai:
+        print('Rasti profiliai:')
+        for nr, profilis in enumerate(rezultatai, start=1):
+            spausdinti_profili(profilis, nr)
+    else:
+        print('Nerasta profilių pagal nurodytą kriterijų.')
+
+
 while True:
     print('--------------------------------')
-    print(f'       PROFILIO TVARKYKLĖ       ')
+    print('       PROFILIO TVARKYKLĖ       ')
     spausdinti_meniu()
-    pasirinkimas = int(input('Pasirinkite veiksmą: '))
+    try:
+        pasirinkimas = int(input('Pasirinkite veiksmą: '))
 
-    match pasirinkimas:
-        case 1:
-            perziureti_profilius()
-        case 2:
-            prideti_profili()
-        case 3:
-            redaguoti_profili()
-        case 4:
-            istrinti_profili()
-        case 5:
-            print('Programa baigiama...')
-            break
-        case _:
-            print('Neteisinga parinktis, bandykite dar kartą.')
+        match pasirinkimas:
+            case 1:
+                perziureti_profilius()
+            case 2:
+                prideti_profili()
+            case 3:
+                redaguoti_profili()
+            case 4:
+                istrinti_profili()
+            case 5:
+                ieskoti_profilio()
+            case 6:
+                print('Programa baigiama...')
+                break
+            case _:
+                print('Neteisinga parinktis, bandykite dar kartą.')
+    except ValueError:
+        print('Neteisinga įvestis.')
